@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oracle.sjgl.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.oracle.sjgl.po.Customer" >
+    <id column="cusid" property="cusid" jdbcType="INTEGER" />
+    <result column="cusname" property="cusname" jdbcType="VARCHAR" />
+    <result column="cusphone" property="cusphone" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="custime" property="custime" jdbcType="DATE" />
+    <result column="descr" property="descr" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cusid, cusname, cusphone, pid, custime, descr, is_del
+  </sql>
+   <select id="customerCountCondition" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.Customer">
+   	select
+   	    <include refid="Base_Column_List" />
+    from customer where is_del = 0
+    <if test="cusid != null" >
+       and cusid = #{cusid,jdbcType=INTEGER}
+      </if>
+	  <if test="cusname != null" >
+       and cusname = #{cusname,jdbcType=VARCHAR}
+      </if>
+      <if test="pid != null" >
+       and pid = #{pid,jdbcType=INTEGER}
+      </if>
+   </select>
+    <select id="selectAllCustomerByCondition" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.Customer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer where is_del = 0 
+	  <if test="cusid != null" >
+       and cusid = #{cusid,jdbcType=INTEGER}
+      </if>
+	  <if test="cusname != null" >
+       and cusname = #{cusname,jdbcType=VARCHAR}
+      </if>
+      <if test="pid != null" >
+       and pid = #{pid,jdbcType=INTEGER}
+      </if>
+	limit #{limitnum},#{size} 
+  </select>
+   <select id="customerCount" resultMap="BaseResultMap" >
+   	select
+   	    <include refid="Base_Column_List" />
+    from customer where is_del = 0
+   </select>
+   <select id="selectAllCustomer" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.util.LimitNum" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+	where is_del = 0 limit #{limitnum},#{size} 
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where cusid = #{cusid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where cusid = #{cusid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oracle.sjgl.po.Customer" >
+    insert into customer (cusid, cusname, cusphone, 
+      pid, custime, descr, is_del
+      )
+    values (#{cusid,jdbcType=INTEGER}, #{cusname,jdbcType=VARCHAR}, #{cusphone,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=INTEGER}, #{custime,jdbcType=DATE}, #{descr,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.oracle.sjgl.po.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cusid != null" >
+        cusid,
+      </if>
+      <if test="cusname != null" >
+        cusname,
+      </if>
+      <if test="cusphone != null" >
+        cusphone,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="custime != null" >
+        custime,
+      </if>
+      <if test="descr != null" >
+        descr,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cusid != null" >
+        #{cusid,jdbcType=INTEGER},
+      </if>
+      <if test="cusname != null" >
+        #{cusname,jdbcType=VARCHAR},
+      </if>
+      <if test="cusphone != null" >
+        #{cusphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="custime != null" >
+        #{custime,jdbcType=DATE},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oracle.sjgl.po.Customer" >
+    update customer
+    <set >
+      <if test="cusname != null" >
+        cusname = #{cusname,jdbcType=VARCHAR},
+      </if>
+      <if test="cusphone != null" >
+        cusphone = #{cusphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="custime != null" >
+        custime = #{custime,jdbcType=DATE},
+      </if>
+      <if test="descr != null" >
+        descr = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cusid = #{cusid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oracle.sjgl.po.Customer" >
+    update customer
+    set cusname = #{cusname,jdbcType=VARCHAR},
+      cusphone = #{cusphone,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      custime = #{custime,jdbcType=DATE},
+      descr = #{descr,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where cusid = #{cusid,jdbcType=INTEGER}
+  </update>
+</mapper>

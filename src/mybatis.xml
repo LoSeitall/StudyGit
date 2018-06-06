@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+	
+	<!--  <typeAliases>
+			<typeAlias type="com.oracle.mybatislogin.po.User" alias="user" />
+	</typeAliases>
+	-->
+<!-- dbcp   s3p0   druid -->
+    <environments default="development">
+        <environment id="development">
+        <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+            <property name="driver" value="com.mysql.jdbc.Driver"/>
+            <property name="url" value="jdbc:mysql://localhost:3306/sjgl" />
+            <property name="username" value="root"/>
+            <property name="password" value="961212"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+        <mapper resource="com/oracle/sjgl/mapper/EmpMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/ColorMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/CustomerMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/MemoryMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/ProductMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/SalaryMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/SellOrderMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/ShopMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/SkuMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/StockMapper.xml"/>
+    </mappers>
+    
+</configuration>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oracle.sjgl.dao.SalaryMapper" >
+  <resultMap id="BaseResultMap" type="com.oracle.sjgl.po.Salary" >
+    <id column="said" property="said" jdbcType="INTEGER" />
+    <result column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="salary" property="salary" jdbcType="INTEGER" />
+    <result column="comm" property="comm" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    said, eid, time, salary, comm, is_del
+  </sql>
+  <select id="">
+ 	 select 
+   	 	<include refid="Base_Column_List" />
+     from salary where is_del = 0;
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salary
+    where said = #{said,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salary
+    where said = #{said,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oracle.sjgl.po.Salary" >
+    insert into salary (said, eid, time, 
+      salary, comm, is_del
+      )
+    values (#{said,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
+      #{salary,jdbcType=INTEGER}, #{comm,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.oracle.sjgl.po.Salary" >
+    insert into salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="said != null" >
+        said,
+      </if>
+      <if test="eid != null" >
+        eid,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="comm != null" >
+        comm,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="said != null" >
+        #{said,jdbcType=INTEGER},
+      </if>
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="comm != null" >
+        #{comm,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oracle.sjgl.po.Salary" >
+    update salary
+    <set >
+      <if test="eid != null" >
+        eid = #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="comm != null" >
+        comm = #{comm,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where said = #{said,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oracle.sjgl.po.Salary" >
+    update salary
+    set eid = #{eid,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      salary = #{salary,jdbcType=INTEGER},
+      comm = #{comm,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where said = #{said,jdbcType=INTEGER}
+  </update>
+</mapper>
