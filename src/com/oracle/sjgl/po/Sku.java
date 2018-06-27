@@ -16,8 +16,38 @@ public class Sku {
     private Integer skuNum;
 
     private Integer isDel;
+    
+    private int size;
+    
+    private int limitnum;
+    
+    private String shop;
+    
+    public String getShop() {
+		return shop;
+	}
 
-    public Integer getSkuid() {
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getLimitnum() {
+		return limitnum;
+	}
+
+	public void setLimitnum(int limitnum) {
+		this.limitnum = limitnum;
+	}
+
+	public Integer getSkuid() {
         return skuid;
     }
 

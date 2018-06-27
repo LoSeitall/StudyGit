@@ -33,6 +33,11 @@
         <mapper resource="com/oracle/sjgl/mapper/ShopMapper.xml"/>
         <mapper resource="com/oracle/sjgl/mapper/SkuMapper.xml"/>
         <mapper resource="com/oracle/sjgl/mapper/StockMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/UserMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/UserPowerMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/RoleMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/MenuPowerMapper.xml"/>
+        <mapper resource="com/oracle/sjgl/mapper/MenuMapper.xml"/>
     </mappers>
     
 </configuration>

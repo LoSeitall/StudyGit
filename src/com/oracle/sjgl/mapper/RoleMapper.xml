@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.sjgl.po">
+
+    <resultMap type="com.oracle.sjgl.po.Role" id="roleList">
+         <id column="mid" property="mid"/>
+     	 <result column="mname" property="mname"/>
+     	 <result column="code" property="code"/>
+     	 <result column="url" property="url"/>
+    </resultMap>
+    
+    <select id="selectAllrole" resultMap="roleList">
+    	select * from l_role
+    </select>
+    
+    <select id="selectroleById" parameterType="int" resultMap="roleList"> 
+    	select * from l_role where rid = #{rid}
+    </select>
+    
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.sjgl.po">
+
+    <resultMap type="com.oracle.sjgl.po.MenuPower" id="MenuPowerList">
+         <id column="mid" property="mid"/>
+     	 <id column="rid" property="rid"/>
+    </resultMap>
+    
+    <select id="selectAllMenuPower" resultMap="MenuPowerList">
+    	select * from l_mpower
+    </select>
+    
+    <select id="selectMenuPowerById" parameterType="int" resultMap="MenuPowerList"> 
+    	select * from l_mpower where rid = #{rid}
+    </select>
+    
+</mapper>

@@ -9,11 +9,125 @@
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="eid" property="eid" jdbcType="INTEGER" />
     <result column="time" property="time" jdbcType="DATE" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="shop" property="shop" jdbcType="VARCHAR" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    oid, pid, cid, mid, price, eid, time, is_del
+    oid, pid, cid, mid, price, eid, time, count, shop, is_del
   </sql>
+   <select id="selectByPid" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.SellOrder" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellorder
+    where is_del = 0 
+     <if test="oid != null" >
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+     <if test="pid != null" >
+        and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="cid != null" >
+        and cid = #{cid,jdbcType=INTEGER}
+      </if>
+      <if test="mid != null" >
+        and mid = #{mid,jdbcType=INTEGER}
+      </if>
+      <if test="price != null" >
+        and price = #{price,jdbcType=INTEGER}
+      </if>
+      <if test="eid != null" >
+        and eid = #{eid,jdbcType=INTEGER}
+      </if>
+      <if test="time != null" >
+        and time = #{time,jdbcType=DATE}
+      </if>
+      <if test="count != null" >
+        and count = #{count,jdbcType=INTEGER}
+      </if>
+      <if test="shop != null" >
+        and shop = #{shop,jdbcType=VARCHAR}
+      </if>
+     </select>
+   <select id="selectAllByConditionCount" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.SellOrder" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellorder
+    where is_del = 0 
+     <if test="oid != null" >
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+     <if test="pid != null" >
+        and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="cid != null" >
+        and cid = #{cid,jdbcType=INTEGER}
+      </if>
+      <if test="mid != null" >
+        and mid = #{mid,jdbcType=INTEGER}
+      </if>
+      <if test="price != null" >
+        and price = #{price,jdbcType=INTEGER}
+      </if>
+      <if test="eid != null" >
+        and eid = #{eid,jdbcType=INTEGER}
+      </if>
+      <if test="time != null" >
+        and time = #{time,jdbcType=DATE}
+      </if>
+      <if test="count != null" >
+        and count = #{count,jdbcType=INTEGER}
+      </if>
+      <if test="shop != null" >
+        and shop = #{shop,jdbcType=VARCHAR}
+      </if>
+  </select>
+   <select id="selectAllByCondition" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.SellOrder" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellorder
+    where is_del = 0 
+    <if test="oid != null" >
+        and oid = #{oid,jdbcType=INTEGER}
+      </if>
+     <if test="pid != null" >
+        and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="cid != null" >
+        and cid = #{cid,jdbcType=INTEGER}
+      </if>
+      <if test="mid != null" >
+        and mid = #{mid,jdbcType=INTEGER}
+      </if>
+      <if test="price != null" >
+        and price = #{price,jdbcType=INTEGER}
+      </if>
+      <if test="eid != null" >
+        and eid = #{eid,jdbcType=INTEGER}
+      </if>
+      <if test="time != null" >
+        and time = #{time,jdbcType=DATE}
+      </if>
+      <if test="count != null" >
+        and count = #{count,jdbcType=INTEGER}
+      </if>
+       <if test="shop != null" >
+        and shop = #{shop,jdbcType=VARCHAR}
+      </if>
+    limit #{limitnum},#{size}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.util.LimitNum" >
+    select 
+    <include refid="Base_Column_List" />
+    from sellorder
+    where is_del = 0 limit #{limitnum},#{size}
+  </select>
+  <select id="selectAllCount" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sellorder
+    where is_del = 0
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -26,11 +140,11 @@
   </delete>
   <insert id="insert" parameterType="com.oracle.sjgl.po.SellOrder" >
     insert into sellorder (oid, pid, cid, 
-      mid, price, eid, time, 
+      mid, price, eid, time, count,
       is_del)
     values (#{oid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
       #{mid,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{eid,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
-      #{isDel,jdbcType=INTEGER})
+      #{count,jdbcType=INTEGER}, #{shop,jdbcType=VARCHAR},#{isDel,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.oracle.sjgl.po.SellOrder" >
     insert into sellorder
@@ -59,6 +173,12 @@
       <if test="isDel != null" >
         is_del,
       </if>
+      <if test="count != null" >
+       count,
+      </if>
+       <if test="shop != null" >
+       shop
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="oid != null" >
@@ -84,6 +204,12 @@
       </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="count != null" >
+       #{count,jdbcType=INTEGER},
+      </if>
+      <if test="shop != null" >
+       #{shop,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -111,6 +237,12 @@
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="shop != null" >
+       shop = #{shop,jdbcType=VARCHAR},
+      </if>
     </set>
     where oid = #{oid,jdbcType=INTEGER}
   </update>
@@ -122,7 +254,9 @@
       price = #{price,jdbcType=INTEGER},
       eid = #{eid,jdbcType=INTEGER},
       time = #{time,jdbcType=DATE},
-      is_del = #{isDel,jdbcType=INTEGER}
+      is_del = #{isDel,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      shop = #{shop,jdbcType=VARCHAR}
     where oid = #{oid,jdbcType=INTEGER}
   </update>
 </mapper>

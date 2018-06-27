@@ -7,27 +7,61 @@
     <result column="cid" property="cid" jdbcType="INTEGER" />
     <result column="mid" property="mid" jdbcType="INTEGER" />
     <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="shop" property="shop" jdbcType="VARCHAR" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    stid, pid, cid, mid, count, is_del
+    stid, pid, cid, mid, count, time, shop,is_del
   </sql>
-    <select id="stockCount" resultMap="BaseResultMap" >
+  <select id="StockConditionCount" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.Stock">
     select 
     <include refid="Base_Column_List" />
     from stock
+    where is_del = 0 
+      <if test="stid != null" >
+       and stid = #{stid,jdbcType=INTEGER}
+      </if>
+     <if test="pid != null" >
+       and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="cid != null" >
+       and cid = #{cid,jdbcType=INTEGER}
+      </if>
+  </select>
+  <select id="selectAllBycondition" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.Stock">
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+     where is_del = 0
+     <if test="stid != null" >
+       and stid = #{stid,jdbcType=INTEGER}
+      </if>
+     <if test="pid != null" >
+       and pid = #{pid,jdbcType=INTEGER}
+      </if>
+      <if test="cid != null" >
+       and cid = #{cid,jdbcType=INTEGER}
+      </if>
+   limit #{limitnum},#{size}
+  </select>
+  <select id="stockCount" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where is_del = 0
   </select>
   <select id="selectAll" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.util.LimitNum">
     select 
     <include refid="Base_Column_List" />
     from stock
-    limit #{limitnum},#{size}
+   where is_del = 0 limit #{limitnum},#{size}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from stock
-    where stid = #{stid,jdbcType=INTEGER}
+    where stid = #{stid,jdbcType=INTEGER} and is_del = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from stock
@@ -37,7 +71,7 @@
     insert into stock (stid, pid, cid, 
       mid, count, is_del)
     values (#{stid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
-      #{mid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER})
+      #{mid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{time,jdbcType=DATE}),#{shop,jdbcType=VARCHAR},#{isDel,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.oracle.sjgl.po.Stock">
     insert into stock
@@ -56,6 +90,12 @@
       </if>
       <if test="count != null" >
         count,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="shop != null" >
+        shop,
       </if>
       <if test="isDel != null" >
         is_del,
@@ -77,6 +117,12 @@
       <if test="count != null" >
         #{count,jdbcType=INTEGER},
       </if>
+       <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="shop != null" >
+        #{shop,jdbcType=VARCHAR},
+      </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
       </if>
@@ -97,6 +143,12 @@
       <if test="count != null" >
         count = #{count,jdbcType=INTEGER},
       </if>
+       <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="shop != null" >
+        shop = #{shop,jdbcType=VARCHAR},
+      </if>
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
@@ -109,6 +161,8 @@
       cid = #{cid,jdbcType=INTEGER},
       mid = #{mid,jdbcType=INTEGER},
       count = #{count,jdbcType=INTEGER},
+      timet = #{time,jdbcType=DATE},
+      shop = #{shop,jdbcType=VARCHAR},
       is_del = #{isDel,jdbcType=INTEGER}
     where stid = #{stid,jdbcType=INTEGER}
   </update>

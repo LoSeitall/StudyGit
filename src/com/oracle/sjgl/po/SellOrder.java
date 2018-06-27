@@ -18,8 +18,60 @@ public class SellOrder {
     private Date time;
 
     private Integer isDel;
+    
+    private int limitnum;
+    
+    private int size;
+    
+    private String stime;
+    
+    private int count;
+    
+    private String shop;
+    
+    
 
-    public Integer getOid() {
+    public String getShop() {
+		return shop;
+	}
+
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getStime() {
+		return stime;
+	}
+
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+
+	public int getLimitnum() {
+		return limitnum;
+	}
+
+	public void setLimitnum(int limitnum) {
+		this.limitnum = limitnum;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public Integer getOid() {
         return oid;
     }
 

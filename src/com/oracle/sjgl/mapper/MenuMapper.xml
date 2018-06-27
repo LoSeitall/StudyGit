@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.sjgl.po">
+
+    <resultMap type="com.oracle.sjgl.po.Menu" id="MenuList">
+         <id column="mid" property="mid"/>
+     	 <result column="mname" property="mname"/>
+     	 <result column="code" property="code"/>
+     	 <result column="url" property="url"/>
+    </resultMap>
+    
+    <select id="selectAllMenu" resultMap="MenuList">
+    	select * from l_menu
+    </select>
+    
+    <select id="selectMenuById" parameterType="int" resultMap="MenuList"> 
+    	select * from l_menu where mid = #{mid}
+    </select>
+    
+    <insert id="addMenu" parameterType="com.oracle.sjgl.po.Menu">
+    	insert into l_menu(mname,code,url) values(#{mname},#{code},#{url})
+    </insert>
+    
+    <delete id="deleteMenu" parameterType="int">
+    	delete from l_menu where uid = #{uid}
+    </delete>
+    
+    <update id="updateMenu" parameterType="com.oracle.sjgl.po.Menu">
+    	update l_menu set mname=#{mname},code=#{code},url=#{url} where mid = #{mid}    
+    </update>
+</mapper>

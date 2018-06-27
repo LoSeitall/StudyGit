@@ -25,6 +25,7 @@ public class PageUtil {
 	
 	/**
 	 * 本方法用于分页显示
+	 * 拼写字符串
 	 * @param pageno
 	 * @param totalcount
 	 * @param size
@@ -63,4 +64,5 @@ public class PageUtil {
 	    str += "</ul>";
 	    setStr(str);
 	}
+
 }

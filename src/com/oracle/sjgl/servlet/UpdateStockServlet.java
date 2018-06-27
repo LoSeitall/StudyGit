@@ -1,14 +1,13 @@
 package com.oracle.sjgl.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.oracle.sjgl.po.Stock;
 import com.oracle.sjgl.service.ProductService;
+import com.oracle.sjgl.util.DateFormat;
 
 public class UpdateStockServlet extends HttpServlet {
 	
@@ -24,6 +23,7 @@ public class UpdateStockServlet extends HttpServlet {
 		String cid = request.getParameter("cid");
 		String mid = request.getParameter("mid");
 		String count = request.getParameter("count");
+		String time = request.getParameter("time");
 		
 		Stock s = new Stock();
 		s.setStid(Integer.parseInt(stid));
@@ -31,6 +31,7 @@ public class UpdateStockServlet extends HttpServlet {
 		s.setMid(Integer.parseInt(mid));
 		s.setCount(Integer.parseInt(count));
 		s.setCid(Integer.parseInt(cid));
+		s.setTime(DateFormat.StringToDate(time));
 		
 		ps.updateByPrimaryKey(s);
 	}

@@ -12,7 +12,13 @@
   <sql id="Base_Column_List" >
     said, eid, time, salary, comm, is_del
   </sql>
-  <select id="">
+  <select id="selectByEid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+ 	 select 
+   	 	<include refid="Base_Column_List" />
+     from salary where is_del = 0
+     and eid = #{eid}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
  	 select 
    	 	<include refid="Base_Column_List" />
      from salary where is_del = 0;

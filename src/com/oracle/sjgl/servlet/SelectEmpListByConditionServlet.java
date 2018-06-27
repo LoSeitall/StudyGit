@@ -1,12 +1,10 @@
 package com.oracle.sjgl.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.oracle.sjgl.po.Emp;
 import com.oracle.sjgl.service.EmpService;
 import com.oracle.sjgl.util.PageUtil;
@@ -45,6 +43,7 @@ public class SelectEmpListByConditionServlet extends HttpServlet {
 		}
 		PageUtil pu = es.selectAllByCondition(Integer.parseInt(pageno), Integer.parseInt(size), emp);
 		
+		request.setAttribute("sex", sex);
 		request.setAttribute("eid",eid);
 		request.setAttribute("ename", ename);
 		request.setAttribute("pageutil", pu);

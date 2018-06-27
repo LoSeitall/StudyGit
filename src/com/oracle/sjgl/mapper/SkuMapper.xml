@@ -9,21 +9,42 @@
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="market_price" property="marketPrice" jdbcType="INTEGER" />
     <result column="sku_num" property="skuNum" jdbcType="INTEGER" />
+    <result column="shop" property="shop" jdbcType="VARCHAR" />
     <result column="is_del" property="isDel" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    skuid, pid, cid, mid, price, market_price, sku_num, is_del
+    skuid, pid, cid, mid, price, market_price, sku_num, shop,is_del
   </sql>
-  <select id="selectAll">
+  <select id="selectAllCount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sku
+    where is_del=0
+  </select>
+  <select id="selectByPid" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.po.Sku" >
+    select 
+    <include refid="Base_Column_List" />
+    from sku
+    where is_del = 0 
+    <if test="pid != null">
+    	and pid = #{pid,jdbcType=INTEGER}
+    </if>
+     <if test="shop != null">
+    	and shop = #{shop,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.oracle.sjgl.util.LimitNum" >
   	select
   	<include refid="Base_Column_List" />
   	from sku
+  	where is_del = 0 limit #{limitnum},#{size}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sku
-    where skuid = #{skuid,jdbcType=INTEGER}
+    where is_del = 0 
+    and skuid = #{skuid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sku
@@ -32,10 +53,10 @@
   <insert id="insert" parameterType="com.oracle.sjgl.po.Sku" >
     insert into sku (skuid, pid, cid, 
       mid, price, market_price, 
-      sku_num, is_del)
+      sku_num, shop,is_del)
     values (#{skuid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
       #{mid,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{marketPrice,jdbcType=INTEGER}, 
-      #{skuNum,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER})
+      #{skuNum,jdbcType=INTEGER}, #{shop,jdbcType=VARCHAR},#{isDel,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.oracle.sjgl.po.Sku" >
     insert into sku
@@ -60,6 +81,9 @@
       </if>
       <if test="skuNum != null" >
         sku_num,
+      </if>
+      <if test="shop != null" >
+        shop,
       </if>
       <if test="isDel != null" >
         is_del,
@@ -87,6 +111,9 @@
       <if test="skuNum != null" >
         #{skuNum,jdbcType=INTEGER},
       </if>
+      <if test="shop != null" >
+        #{shop,jdbcType=VARCHAR},
+      </if>
       <if test="isDel != null" >
         #{isDel,jdbcType=INTEGER},
       </if>
@@ -113,11 +140,26 @@
       <if test="skuNum != null" >
         sku_num = #{skuNum,jdbcType=INTEGER},
       </if>
+        <if test="isDel != null" >
+        shop = #{shop,jdbcType=VARCHAR},
+      </if>
       <if test="isDel != null" >
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
     </set>
     where skuid = #{skuid,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPidSelective" parameterType="com.oracle.sjgl.po.Sku" >
+    update sku
+    <set>
+      <if test="skuNum != null" >
+        sku_num = #{skuNum,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oracle.sjgl.po.Sku" >
     update sku
@@ -127,6 +169,7 @@
       price = #{price,jdbcType=INTEGER},
       market_price = #{marketPrice,jdbcType=INTEGER},
       sku_num = #{skuNum,jdbcType=INTEGER},
+      shop = #{shop,jdbcType=VARCHAR}
       is_del = #{isDel,jdbcType=INTEGER}
     where skuid = #{skuid,jdbcType=INTEGER}
   </update>

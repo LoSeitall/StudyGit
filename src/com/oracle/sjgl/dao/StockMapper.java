@@ -1,7 +1,6 @@
 package com.oracle.sjgl.dao;
 
 import java.util.List;
-
 import com.oracle.sjgl.po.Stock;
 import com.oracle.sjgl.util.LimitNum;
 
@@ -21,4 +20,10 @@ public interface StockMapper {
     List<Stock> selectAll(LimitNum ln);
     
     List<Stock> stockCount();
+    
+    List<Stock> StockConditionCount(Stock stock);
+    
+    List<Stock> selectAllBycondition(Stock stock);
+    
+    List<Stock> stockCount (Stock stock);
 }

@@ -14,8 +14,18 @@ public class Salary {
     private Integer comm;
 
     private Integer isDel;
+    
+    private String stime;
 
-    public Integer getSaid() {
+    public String getStime() {
+		return stime;
+	}
+
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+
+	public Integer getSaid() {
         return said;
     }
 
